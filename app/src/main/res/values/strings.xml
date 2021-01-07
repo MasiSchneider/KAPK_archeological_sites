@@ -6,4 +6,7 @@
     <string name="menu_addSite">Add</string>
     <string name="menu_cancelSite">Cancel</string>
     <string name="menu_deleteSite">Delete</string>
+    <string name="menu_saveSite">Save</string>
+    <string name="enter_site_title">Please enter a Site Title</string>
+    <string name="SplashScreenText">Archeological Sites</string>
 </resources>

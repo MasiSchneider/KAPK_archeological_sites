@@ -13,11 +13,16 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:name=".activities.SiteListActivity"
+            android:parentActivityName=".activities.SiteListActivity">
+        </activity>
+
+        <activity
             android:name=".activities.SiteActivity"
             android:parentActivityName=".activities.SiteListActivity">
         </activity>
 
-        <activity android:name=".activities.SiteListActivity">
+        <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

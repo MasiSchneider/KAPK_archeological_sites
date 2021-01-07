@@ -33,29 +33,9 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
 
         if(intent.hasExtra("site_edit")) {
             edit = true
-            btnAdd.setText("Save")
             site = intent.extras?.getParcelable<SiteModel>("site_edit")!!
             siteTitle.setText(site.title)
             description.setText(site.description)
-        }
-
-        btnAdd.setOnClickListener() {
-            site.title = siteTitle.text.toString()
-            site.description = description.text.toString()
-
-            if (site.title.isNotEmpty()) {
-                if(edit) {
-                    app.sites.update(site)
-                }
-                else {
-                    app.sites.create(site)
-                }
-                setResult(RESULT_OK)
-                finish()
-            }
-            else {
-                toast ("Please Enter a title")
-            }
         }
     }
 
@@ -72,6 +52,22 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
                 finish()
             }
             R.id.item_cancel -> {
+                finish()
+            }
+            R.id.item_save -> {
+                if (siteTitle.text.toString().isEmpty()) {
+                    toast(R.string.enter_site_title)
+                } else {
+                    site.title = siteTitle.text.toString()
+                    site.description = description.text.toString()
+                    if (edit) {
+                        app.sites.update(site)
+                    }
+                    else {
+                        app.sites.create(site)
+                    }
+                }
+                setResult(RESULT_OK)
                 finish()
             }
         }
