@@ -1,19 +1,12 @@
 package org.wit.sites.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.set
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-
-
-import kotlinx.android.synthetic.main.activity_site.view.*
 import kotlinx.android.synthetic.main.activity_site_list.*
-import kotlinx.android.synthetic.main.card_site.view.*
-import kotlinx.android.synthetic.main.card_site.view.description
-import kotlinx.android.synthetic.main.card_site.view.siteTitle
-
+import org.jetbrains.anko.intentFor
 
 
 import org.jetbrains.anko.startActivityForResult
@@ -21,7 +14,7 @@ import org.wit.sites.R
 import org.wit.sites.main.MainApp
 import org.wit.sites.models.SiteModel
 
-class SiteListActivity : AppCompatActivity() {
+class SiteListActivity : AppCompatActivity(), SiteListener {
 
     lateinit var app: MainApp
 
@@ -29,12 +22,13 @@ class SiteListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_list)
         app = application as MainApp
+
         toolbar.title = title
         setSupportActionBar(toolbar)
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = SiteAdapter(app.sites)
+        loadSites()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,6 +41,24 @@ class SiteListActivity : AppCompatActivity() {
             R.id.item_add -> startActivityForResult<SiteActivity>(0)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun loadSites() {
+        showSites(app.sites.findAll())
+    }
+
+    fun showSites(sites: List<SiteModel>) {
+        recyclerView.adapter = SiteAdapter(sites, this)
+        recyclerView.adapter?.notifyDataSetChanged()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        loadSites()
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onSiteClick(site: SiteModel) {
+        startActivityForResult(intentFor<SiteActivity>(), 0)
     }
 }
 

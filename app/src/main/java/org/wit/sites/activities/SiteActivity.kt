@@ -34,11 +34,7 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
             site.description = description.text.toString()
 
             if (site.title.isNotEmpty()) {
-                app.sites.add(site.copy())
-                info("add Button Pressed: ${site}")
-                for (i in app.sites.indices) {
-                    info("Site[$i]:${app.sites[i]}")
-                }
+                app.sites.create(site)
                 setResult(RESULT_OK)
                 finish()
             }
