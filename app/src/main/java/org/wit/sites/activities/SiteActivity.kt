@@ -16,7 +16,7 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
 
     var site = SiteModel()
     lateinit var app: MainApp
-
+    var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +26,10 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
 
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) // up support
         info("Site Activity started..")
 
-        var edit = false
 
         if(intent.hasExtra("site_edit")) {
             edit = true
@@ -60,11 +61,16 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_site, menu)
+        if (edit && menu != null) menu.getItem(0).setVisible(true)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
+            R.id.item_delete -> {
+                app.sites.delete(site)
+                finish()
+            }
             R.id.item_cancel -> {
                 finish()
             }
