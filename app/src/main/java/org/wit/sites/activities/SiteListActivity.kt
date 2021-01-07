@@ -58,7 +58,7 @@ class SiteListActivity : AppCompatActivity(), SiteListener {
     }
 
     override fun onSiteClick(site: SiteModel) {
-        startActivityForResult(intentFor<SiteActivity>(), 0)
+        startActivityForResult(intentFor<SiteActivity>().putExtra("site_edit", site), 0)
     }
 }
 

@@ -28,13 +28,27 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolbarAdd)
         info("Site Activity started..")
 
+        var edit = false
+
+        if(intent.hasExtra("site_edit")) {
+            edit = true
+            btnAdd.setText("Save")
+            site = intent.extras?.getParcelable<SiteModel>("site_edit")!!
+            siteTitle.setText(site.title)
+            description.setText(site.description)
+        }
 
         btnAdd.setOnClickListener() {
             site.title = siteTitle.text.toString()
             site.description = description.text.toString()
 
             if (site.title.isNotEmpty()) {
-                app.sites.create(site)
+                if(edit) {
+                    app.sites.update(site)
+                }
+                else {
+                    app.sites.create(site)
+                }
                 setResult(RESULT_OK)
                 finish()
             }
