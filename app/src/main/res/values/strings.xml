@@ -2,4 +2,6 @@
     <string name="app_name">sites</string>
     <string name="button_addSite">Add site</string>
     <string name="hint_siteTitle">Site title</string>
+    <string name="hint_siteDescription">Description </string>
+    <string name="menu_addSite">Add</string>
 </resources>

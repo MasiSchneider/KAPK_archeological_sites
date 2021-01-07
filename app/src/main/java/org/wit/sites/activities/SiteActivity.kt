@@ -7,21 +7,33 @@ import org.jetbrains.anko.info
 import org.wit.sites.R
 import kotlinx.android.synthetic.main.activity_site.*
 import org.jetbrains.anko.toast
+import org.wit.sites.main.MainApp
 import org.wit.sites.models.SiteModel
 
 class SiteActivity : AppCompatActivity(), AnkoLogger {
 
     var site = SiteModel()
+    lateinit var app: MainApp
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site)
-        info("Site Activity started..")
+
+        app = application as MainApp
 
         btnAdd.setOnClickListener() {
             site.title = siteTitle.text.toString()
+            site.description = description.text.toString()
+
             if (site.title.isNotEmpty()) {
-                info("add Button Pressed: " + site.title)
+                app.sites.add(site.copy())
+                info("add Button Pressed: ${site}")
+                for (i in app.sites.indices) {
+                    info("Site[$i]:${app.sites[i]}")
+                }
+                setResult(RESULT_OK)
+                finish()
             }
             else {
                 toast ("Please Enter a title")
