@@ -50,23 +50,3 @@ class SiteListActivity : AppCompatActivity() {
     }
 }
 
-class SiteAdapter constructor(private var sites: List<SiteModel>) : RecyclerView.Adapter<SiteAdapter.MainHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        return MainHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_site, parent, false))
-    }
-
-    override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        val site = sites[holder.adapterPosition]
-        holder.bind(site)
-    }
-
-    override fun getItemCount(): Int = sites.size
-
-    class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(site: SiteModel) {
-            itemView.siteTitle.text = site.title
-            itemView.description.text = site.description
-        }
-    }
-}
