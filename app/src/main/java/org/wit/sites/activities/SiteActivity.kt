@@ -23,6 +23,8 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
     var edit = false
     val IMAGE1_REQUEST = 1
     val IMAGE2_REQUEST = 2
+    val IMAGE3_REQUEST = 3
+    val IMAGE4_REQUEST = 4
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,19 +47,31 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
 
             SiteImage1.setImageBitmap(readImageFromPath(this,site.image1))
             SiteImage2.setImageBitmap(readImageFromPath(this,site.image2))
+            SiteImage3.setImageBitmap(readImageFromPath(this,site.image3))
+            SiteImage4.setImageBitmap(readImageFromPath(this,site.image4))
+
             if(site.image1 != "")
                 chooseImage1.setText(R.string.change_site_image)
             if(site.image2 != "")
                 chooseImage2.setText(R.string.change_site_image)
+            if(site.image3 != "")
+                chooseImage3.setText(R.string.change_site_image)
+            if(site.image4 != "")
+                chooseImage4.setText(R.string.change_site_image)
         }
 
+
         chooseImage1.setOnClickListener {
-            info("Select image 1")
             showImagePicker(this,IMAGE1_REQUEST)
         }
         chooseImage2.setOnClickListener {
-            info("Select image 2")
             showImagePicker(this,IMAGE2_REQUEST)
+        }
+        chooseImage3.setOnClickListener {
+            showImagePicker(this,IMAGE3_REQUEST)
+        }
+        chooseImage4.setOnClickListener {
+            showImagePicker(this,IMAGE4_REQUEST)
         }
     }
 
@@ -110,7 +124,21 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
                 if (data != null) {
                     site.image2 = data.getData().toString()
                     SiteImage2.setImageBitmap(readImage(this, resultCode, data))
-                    chooseImage1.setText(R.string.change_site_image)
+                    chooseImage2.setText(R.string.change_site_image)
+                }
+            }
+            IMAGE3_REQUEST -> {
+                if (data != null) {
+                    site.image3 = data.getData().toString()
+                    SiteImage3.setImageBitmap(readImage(this, resultCode, data))
+                    chooseImage3.setText(R.string.change_site_image)
+                }
+            }
+            IMAGE4_REQUEST -> {
+                if (data != null) {
+                    site.image4 = data.getData().toString()
+                    SiteImage4.setImageBitmap(readImage(this, resultCode, data))
+                    chooseImage4.setText(R.string.change_site_image)
                 }
             }
         }
