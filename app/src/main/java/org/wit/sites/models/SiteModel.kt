@@ -2,6 +2,7 @@ package org.wit.sites.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Parcelize
 data class SiteModel(var id: Long = 0,
@@ -12,6 +13,8 @@ data class SiteModel(var id: Long = 0,
                      var image2: String = "",
                      var image3: String = "",
                      var image4: String = "",
+                     var visited: Boolean = false,
+                     var visitedDate: String = "",
                      var location: Location = Location()) : Parcelable
 
 @Parcelize

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -15,6 +16,9 @@ import org.wit.sites.helpers.readImageFromPath
 import org.wit.sites.helpers.showImagePicker
 import org.wit.sites.main.MainApp
 import org.wit.sites.models.SiteModel
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.util.*
 
 class SiteActivity : AppCompatActivity(), AnkoLogger {
 
@@ -58,6 +62,13 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
                 chooseImage3.setText(R.string.change_site_image)
             if(site.image4 != "")
                 chooseImage4.setText(R.string.change_site_image)
+            if(site.visited)
+            {
+                checkBoxVisited.setChecked(true)
+                dateVisted.setVisibility(View.VISIBLE)
+                dateVisted.setText(site.visitedDate)
+            }
+
         }
 
 
@@ -72,6 +83,22 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
         }
         chooseImage4.setOnClickListener {
             showImagePicker(this,IMAGE4_REQUEST)
+        }
+
+        checkBoxVisited.setOnClickListener {
+            site.visited=!site.visited
+            if(site.visited)
+            {
+                dateVisted.setVisibility(View.VISIBLE)
+                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+                val currentDate = sdf.format(Date())
+                site.visitedDate = currentDate
+                dateVisted.setText(currentDate)
+            }
+            else
+            {
+                dateVisted.setVisibility(View.INVISIBLE)
+            }
         }
     }
 
