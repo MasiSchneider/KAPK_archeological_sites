@@ -8,7 +8,8 @@ data class SiteModel(var id: Long = 0,
                      var fbId: String = "",
                      var title: String = "",
                      var description: String = "",
-                     var image: String = "",
+                     var image1: String = "",
+                     var image2: String = "",
                      var location: Location = Location()) : Parcelable
 
 @Parcelize
