@@ -48,6 +48,7 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
             site = intent.extras?.getParcelable<SiteModel>("site_edit")!!
             siteTitle.setText(site.title)
             description.setText(site.description)
+            SiteNotes.setText(site.notes)
 
             SiteImage1.setImageBitmap(readImageFromPath(this,site.image1))
             SiteImage2.setImageBitmap(readImageFromPath(this,site.image2))
@@ -123,6 +124,7 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
                 } else {
                     site.title = siteTitle.text.toString()
                     site.description = description.text.toString()
+                    site.notes = SiteNotes.text.toString()
                     if (edit) {
                         app.sites.update(site)
                     }

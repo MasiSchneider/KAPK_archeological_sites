@@ -218,6 +218,22 @@
                     app:srcCompat="@color/cardview_shadow_end_color" />
 
 
+                <EditText
+                    android:id="@+id/SiteNotes"
+                    android:layout_width="401dp"
+                    android:layout_height="178dp"
+                    android:hint="@string/hint_notes"
+                    android:inputType="textMultiLine"
+                    android:maxLength="100"
+                    android:maxLines="5"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/SiteImage4">
+                </EditText>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 

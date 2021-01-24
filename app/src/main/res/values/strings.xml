@@ -13,4 +13,5 @@
     <string name="select_site_image">Select site image</string>
     <string name="change_site_image">Change site image</string>
     <string name="checkbox_text">visited</string>
+    <string name="hint_notes">notes</string>
 </resources>
