@@ -14,4 +14,6 @@
     <string name="change_site_image">Change site image</string>
     <string name="checkbox_text">visited</string>
     <string name="hint_notes">notes</string>
+    <string name="title_activity_map">Map</string>
+    <string name="button_setLocation">SET LOCATION</string>
 </resources>

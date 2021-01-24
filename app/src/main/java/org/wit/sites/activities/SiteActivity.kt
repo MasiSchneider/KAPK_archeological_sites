@@ -1,6 +1,7 @@
 package org.wit.sites.activities
 
 import android.content.Intent
+
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,11 +11,15 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.wit.sites.R
 import kotlinx.android.synthetic.main.activity_site.*
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
+import org.wit.sites.activities.map.MapActivity
 import org.wit.sites.helpers.readImage
 import org.wit.sites.helpers.readImageFromPath
 import org.wit.sites.helpers.showImagePicker
 import org.wit.sites.main.MainApp
+import org.wit.sites.models.Location
+
 import org.wit.sites.models.SiteModel
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -29,6 +34,7 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
     val IMAGE2_REQUEST = 2
     val IMAGE3_REQUEST = 3
     val IMAGE4_REQUEST = 4
+    val LOCATION_REQUEST = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +48,14 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // up support
         info("Site Activity started..")
 
-
         if(intent.hasExtra("site_edit")) {
             edit = true
             site = intent.extras?.getParcelable<SiteModel>("site_edit")!!
             siteTitle.setText(site.title)
             description.setText(site.description)
             SiteNotes.setText(site.notes)
+            lat.text = (site.location.lat).toString()
+            lng.text = (site.location.lng).toString()
 
             SiteImage1.setImageBitmap(readImageFromPath(this,site.image1))
             SiteImage2.setImageBitmap(readImageFromPath(this,site.image2))
@@ -72,7 +79,6 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
 
         }
 
-
         chooseImage1.setOnClickListener {
             showImagePicker(this,IMAGE1_REQUEST)
         }
@@ -84,6 +90,13 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
         }
         chooseImage4.setOnClickListener {
             showImagePicker(this,IMAGE4_REQUEST)
+        }
+
+        button_location.setOnClickListener {
+            var location = Location(52.245696, -7.139102, 15f)
+            if(site.location.zoom != 0f)
+                location = site.location
+            startActivityForResult(intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
         }
 
         checkBoxVisited.setOnClickListener {
@@ -103,11 +116,15 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+
+
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_site, menu)
         if (edit && menu != null) menu.getItem(0).setVisible(true)
         return super.onCreateOptionsMenu(menu)
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
@@ -168,6 +185,14 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
                     site.image4 = data.getData().toString()
                     SiteImage4.setImageBitmap(readImage(this, resultCode, data))
                     chooseImage4.setText(R.string.change_site_image)
+                }
+            }
+            LOCATION_REQUEST -> {
+                if (data != null) {
+                    val location = data.extras?.getParcelable<Location>("location")!!
+                    site.location = location
+                    lng.text = location.lng.toString()
+                    lat.text = location.lat.toString()
                 }
             }
         }
