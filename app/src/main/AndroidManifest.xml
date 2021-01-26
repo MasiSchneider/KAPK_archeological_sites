@@ -14,12 +14,13 @@
 
         <activity
             android:name=".activities.SiteListActivity"
-            android:parentActivityName=".activities.SiteListActivity">
+            android:label="@string/title_activity_site_list">
         </activity>
 
         <activity
             android:name=".activities.SiteActivity"
-            android:parentActivityName=".activities.SiteListActivity">
+            android:parentActivityName=".activities.SiteListActivity"
+            android:label="@string/title_activity_site">
         </activity>
 
         <activity android:name=".activities.SplashActivity">

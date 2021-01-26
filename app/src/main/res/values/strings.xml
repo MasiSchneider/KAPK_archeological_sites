@@ -12,4 +12,6 @@
     <string name="button_addImage">Add Image</string>
     <string name="select_site_image">Select site image</string>
     <string name="change_site_image">Change site image</string>
+    <string name="title_activity_site_list">Site list</string>
+    <string name="title_activity_site">Site</string>
 </resources>
