@@ -19,6 +19,17 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".activities.SettingsActivity"
+            android:parentActivityName=".activities.SiteListActivity">
+        </activity>
+
+        <activity
+            android:name=".activities.login.LoginAcitivity"
+            android:parentActivityName=".activities.SiteListActivity">
+        </activity>
+
+
+        <activity
             android:name=".activities.map.MapActivity"
             android:label="@string/title_activity_map"></activity>
         <activity

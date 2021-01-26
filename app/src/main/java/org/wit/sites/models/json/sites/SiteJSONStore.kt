@@ -1,4 +1,4 @@
-package org.wit.sites.models.json
+package org.wit.sites.models.json.sites
 
 import android.content.Context
 import com.google.gson.Gson

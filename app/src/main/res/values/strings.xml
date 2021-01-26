@@ -3,7 +3,7 @@
     <string name="button_addSite">Add site</string>
     <string name="hint_siteTitle">Site title</string>
     <string name="hint_siteDescription">Description </string>
-    <string name="menu_addSite">Add</string>
+    <string name="menu_addSite">Add Site</string>
     <string name="menu_cancelSite">Cancel</string>
     <string name="menu_deleteSite">Delete</string>
     <string name="menu_saveSite">Save</string>
@@ -16,4 +16,6 @@
     <string name="hint_notes">notes</string>
     <string name="title_activity_map">Map</string>
     <string name="button_setLocation">SET LOCATION</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_settings">Settings</string>
 </resources>
