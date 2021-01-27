@@ -13,10 +13,12 @@ import org.wit.sites.models.json.users.UserJSONStore
 class MainApp : Application(), AnkoLogger {
     lateinit var sites: SiteStore
     lateinit var user: UserModel
+    lateinit var users: UserJSONStore
 
     override fun onCreate() {
         super.onCreate()
         sites = SiteJSONStore(applicationContext)
+        users = UserJSONStore(applicationContext)
         info("Sites App started")
     }
 }

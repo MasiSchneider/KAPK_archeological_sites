@@ -8,6 +8,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.wit.sites.helpers.*
 import org.wit.sites.models.SiteModel
 import org.wit.sites.models.SiteStore
+import org.wit.sites.models.UserModel
 import java.util.*
 
 val JSON_FILE = "sites.json"
@@ -23,6 +24,7 @@ class SiteJSONStore : SiteStore, AnkoLogger {
     val context: Context
     var sites = mutableListOf<SiteModel>()
 
+
     constructor (context: Context) {
         this.context = context
         if (exists(context, JSON_FILE)) {
@@ -34,8 +36,9 @@ class SiteJSONStore : SiteStore, AnkoLogger {
         return sites
     }
 
-    override fun create(site: SiteModel) {
+    override fun create(site: SiteModel, JsonUserid: Long) {
         site.id = generateRandomId()
+        site.jsonUserId = JsonUserid
         sites.add(site)
         serialize()
     }
@@ -82,5 +85,9 @@ class SiteJSONStore : SiteStore, AnkoLogger {
 
     override fun clear() {
         sites.clear()
+    }
+
+    override fun findAllWithId(id: Long): MutableList<SiteModel> {
+        return (sites.filter { it.jsonUserId.equals(id) } as MutableList<SiteModel>)
     }
 }

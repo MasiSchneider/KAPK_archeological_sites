@@ -146,7 +146,7 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
                         app.sites.update(site)
                     }
                     else {
-                        app.sites.create(site)
+                        app.sites.create(site,app.user.id)
                     }
                 }
                 setResult(RESULT_OK)

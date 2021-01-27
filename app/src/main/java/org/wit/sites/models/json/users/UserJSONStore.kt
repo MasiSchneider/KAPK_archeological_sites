@@ -45,21 +45,24 @@ class UserJSONStore :UserStore, AnkoLogger {
         return user
     }
 
-    override fun changeEmail(id: Long, email: String) {
+    override fun changeEmail(id: Long, NewEmail: String) : Boolean {
+        if(exists(NewEmail))
+            return false
         var foundUser = users.find {p -> p.id == id}
-        foundUser?.email = email
+        foundUser?.email = NewEmail
         serialize()
+        return true
     }
 
-    override fun changePassword(id: Long, password: String) {
+    override fun changePassword(id: Long, password: String) : Boolean {
         var foundUser = users.find {p -> p.id == id}
         foundUser?.password = password
         serialize()
+        return true
     }
 
     override fun findById(id: Long): UserModel? {
-        val foundUser: UserModel? = users.find { it.id == id }
-        return foundUser
+        return users.find { it.id == id }
     }
 
     override fun findByEmailPassword(email: String, password: String): UserModel? {
