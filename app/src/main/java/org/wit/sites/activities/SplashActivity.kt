@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.activity_splash.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import org.wit.sites.R
+import org.wit.sites.activities.login.LoginAcitivity
 import java.util.*
 
 
@@ -20,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
             }
             override fun onFinish() {
-                startActivity(Intent(applicationContext, SiteListActivity::class.java))
+                startActivity(Intent(applicationContext, LoginAcitivity::class.java))
             }
         }.start()
     }
