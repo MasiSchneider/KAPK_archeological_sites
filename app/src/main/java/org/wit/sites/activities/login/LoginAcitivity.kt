@@ -12,11 +12,11 @@ import org.wit.sites.activities.SiteListActivity
 import org.wit.sites.main.MainApp
 import org.wit.sites.models.UserModel
 import org.wit.sites.models.UserStore
+import org.wit.sites.models.json.sites.SiteJSONStore
 import org.wit.sites.models.json.users.UserJSONStore
 
 class LoginAcitivity : AppCompatActivity(), AnkoLogger {
     lateinit var app: MainApp
-    lateinit var users: UserJSONStore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +24,6 @@ class LoginAcitivity : AppCompatActivity(), AnkoLogger {
         progressBar.visibility = View.GONE
 
         app = application as MainApp
-        users = UserJSONStore(applicationContext)
 
         signUp.setOnClickListener {
             if (email.text.toString() == "" || password.text.toString() == "") {
@@ -33,7 +32,7 @@ class LoginAcitivity : AppCompatActivity(), AnkoLogger {
                 var user = UserModel()
                 user.email = email.text.toString()
                 user.password = password.text.toString()
-                user = users.create(user)
+                user = app.users.create(user)
                 if(user.id != 0L)
                 {
                     app.user = user
@@ -51,7 +50,7 @@ class LoginAcitivity : AppCompatActivity(), AnkoLogger {
                 toast("Please provide email + password")
             }
             else {
-                var foundUser=users.findByEmailPassword(email, password)
+                var foundUser=app.users.findByEmailPassword(email, password)
                 if(foundUser==null)
                     toast("Authentification failed")
                 else

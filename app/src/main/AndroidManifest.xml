@@ -20,28 +20,34 @@
 
         <activity
             android:name=".activities.SettingsActivity"
-            android:parentActivityName=".activities.SiteListActivity">
+            android:parentActivityName=".activities.SiteListActivity"
+            android:label="@string/title_activity_settings">
         </activity>
 
         <activity
             android:name=".activities.login.LoginAcitivity"
-            android:parentActivityName=".activities.SiteListActivity">
+            android:label="@string/title_activity_login">
         </activity>
-
 
         <activity
             android:name=".activities.map.MapActivity"
-            android:label="@string/title_activity_map"></activity>
+            android:label="@string/title_activity_map">
+        </activity>
+
         <activity
             android:name=".activities.SiteListActivity"
-            android:parentActivityName=".activities.SiteListActivity"></activity>
+            android:label="@string/title_activity_site_list">
+        </activity>
+
         <activity
             android:name=".activities.SiteActivity"
-            android:parentActivityName=".activities.SiteListActivity"></activity>
+            android:parentActivityName=".activities.SiteListActivity"
+            android:label="@string/title_activity_site">
+        </activity>
+
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -47,7 +47,7 @@ class SiteListActivity : AppCompatActivity(), SiteListener {
     }
 
     private fun loadSites() {
-        showSites(app.sites.findAll())
+        showSites(app.sites.findAllWithId(app.user.id))
     }
 
     fun showSites(sites: List<SiteModel>) {
