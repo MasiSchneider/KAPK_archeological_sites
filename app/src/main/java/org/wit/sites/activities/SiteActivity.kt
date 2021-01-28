@@ -56,6 +56,7 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
             SiteNotes.setText(site.notes)
             lat.text = (site.location.lat).toString()
             lng.text = (site.location.lng).toString()
+            ratingBar.rating = site.rating
 
             SiteImage1.setImageBitmap(readImageFromPath(this,site.image1))
             SiteImage2.setImageBitmap(readImageFromPath(this,site.image2))
@@ -142,6 +143,8 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
                     site.title = siteTitle.text.toString()
                     site.description = description.text.toString()
                     site.notes = SiteNotes.text.toString()
+                    site.rating = ratingBar.rating
+
                     if (edit) {
                         app.sites.update(site)
                     }

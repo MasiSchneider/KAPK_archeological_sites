@@ -134,6 +134,16 @@
                     android:visibility="invisible"
                     app:layout_constraintTop_toBottomOf="@+id/description" />
 
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/checkBoxVisited"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="15dp"
+                    />
+
                 <Button
                     android:id="@+id/button_location"
                     android:layout_width="379dp"
@@ -149,7 +159,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/checkBoxVisited" />
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
                 <Button
                     android:id="@+id/chooseImage1"

@@ -57,6 +57,7 @@ class SiteJSONStore : SiteStore, AnkoLogger {
             foundSite.visited = site.visited
             foundSite.visitedDate = site.visitedDate
             foundSite.notes = site.notes
+            foundSite.rating = site.rating
             foundSite.location = site.location
         }
         serialize()
