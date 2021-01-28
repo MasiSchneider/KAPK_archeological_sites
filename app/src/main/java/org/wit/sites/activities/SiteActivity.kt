@@ -13,7 +13,7 @@ import org.wit.sites.R
 import kotlinx.android.synthetic.main.activity_site.*
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
-import org.wit.sites.activities.map.MapActivity
+import org.wit.sites.activities.location.LocationActivity
 import org.wit.sites.helpers.readImage
 import org.wit.sites.helpers.readImageFromPath
 import org.wit.sites.helpers.showImagePicker
@@ -97,7 +97,7 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
             var location = Location(52.245696, -7.139102, 15f)
             if(site.location.zoom != 0f)
                 location = site.location
-            startActivityForResult(intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
+            startActivityForResult(intentFor<LocationActivity>().putExtra("location", location), LOCATION_REQUEST)
         }
 
         checkBoxVisited.setOnClickListener {

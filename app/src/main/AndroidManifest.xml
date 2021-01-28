@@ -30,8 +30,14 @@
         </activity>
 
         <activity
-            android:name=".activities.map.MapActivity"
-            android:label="@string/title_activity_map">
+            android:name=".activities.map.SiteMapsActivity"
+            android:label="@string/title_activity_map"
+            android:launchMode="singleTop">
+        </activity>
+
+        <activity
+            android:name=".activities.location.LocationActivity"
+            android:label="@string/title_activity_location">
         </activity>
 
         <activity

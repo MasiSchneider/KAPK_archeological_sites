@@ -12,6 +12,7 @@ import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
 import org.wit.sites.R
 import org.wit.sites.activities.login.LoginAcitivity
+import org.wit.sites.activities.map.SiteMapsActivity
 import org.wit.sites.main.MainApp
 import org.wit.sites.models.SiteModel
 
@@ -42,6 +43,7 @@ class SiteListActivity : AppCompatActivity(), SiteListener {
             R.id.item_add -> startActivityForResult<SiteActivity>(0)
             R.id.item_settings -> startActivityForResult<SettingsActivity>(0)
             R.id.item_logout -> startActivityForResult<LoginAcitivity>(0)
+            R.id.item_map -> startActivityForResult<SiteMapsActivity>(0)
         }
         return super.onOptionsItemSelected(item)
     }
