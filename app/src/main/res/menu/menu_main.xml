@@ -6,6 +6,12 @@
         android:id="@+id/item_add"
         android:title="@string/menu_addSite"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item_map"
+        android:title="@string/menu_showMap"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/item_settings"
         android:title="@string/menu_settings"

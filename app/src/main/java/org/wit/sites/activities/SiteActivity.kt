@@ -13,7 +13,7 @@ import org.wit.sites.R
 import kotlinx.android.synthetic.main.activity_site.*
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
-import org.wit.sites.activities.map.MapActivity
+import org.wit.sites.activities.location.LocationActivity
 import org.wit.sites.helpers.readImage
 import org.wit.sites.helpers.readImageFromPath
 import org.wit.sites.helpers.showImagePicker
@@ -56,6 +56,7 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
             SiteNotes.setText(site.notes)
             lat.text = (site.location.lat).toString()
             lng.text = (site.location.lng).toString()
+            ratingBar.rating = site.rating
 
             SiteImage1.setImageBitmap(readImageFromPath(this,site.image1))
             SiteImage2.setImageBitmap(readImageFromPath(this,site.image2))
@@ -96,7 +97,7 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
             var location = Location(52.245696, -7.139102, 15f)
             if(site.location.zoom != 0f)
                 location = site.location
-            startActivityForResult(intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
+            startActivityForResult(intentFor<LocationActivity>().putExtra("location", location), LOCATION_REQUEST)
         }
 
         checkBoxVisited.setOnClickListener {
@@ -142,6 +143,8 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
                     site.title = siteTitle.text.toString()
                     site.description = description.text.toString()
                     site.notes = SiteNotes.text.toString()
+                    site.rating = ratingBar.rating
+
                     if (edit) {
                         app.sites.update(site)
                     }
