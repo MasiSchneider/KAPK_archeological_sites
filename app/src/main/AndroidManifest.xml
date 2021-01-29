@@ -37,6 +37,7 @@
 
         <activity
             android:name=".activities.location.LocationActivity"
+            android:parentActivityName=".activities.SiteListActivity"
             android:label="@string/title_activity_location">
         </activity>
 
