@@ -1,15 +1,11 @@
-package org.wit.sites.activities
+package org.wit.sites.activities.splash
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_splash.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import org.wit.sites.R
 import org.wit.sites.activities.login.LoginAcitivity
-import java.util.*
 
 
 class SplashActivity : AppCompatActivity() {

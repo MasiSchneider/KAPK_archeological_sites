@@ -3,64 +3,98 @@ package org.wit.sites.activities.login
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import org.wit.sites.R
-import org.wit.sites.activities.SiteListActivity
+import org.wit.sites.activities.siteList.SiteListActivity
 import org.wit.sites.main.MainApp
-import org.wit.sites.models.UserModel
-import org.wit.sites.models.UserStore
-import org.wit.sites.models.json.sites.SiteJSONStore
-import org.wit.sites.models.json.users.UserJSONStore
+import org.wit.sites.models.firebase.SiteFireStore
 
 class LoginAcitivity : AppCompatActivity(), AnkoLogger {
     lateinit var app: MainApp
+    var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    var fireStore: SiteFireStore? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         progressBar.visibility = View.GONE
 
+        toolbar.title = title
+        setSupportActionBar(toolbar)
+
         app = application as MainApp
+        if (app.sites is SiteFireStore) {
+            fireStore = app.sites as SiteFireStore
+        }
 
         signUp.setOnClickListener {
-            if (email.text.toString() == "" || password.text.toString() == "") {
+            var email = email.text.toString()
+            var password = password.text.toString()
+            if (email == "" || password == "") {
                 toast("Please provide email + password")
             } else {
-                var user = UserModel()
-                user.email = email.text.toString()
-                user.password = password.text.toString()
-                user = app.users.create(user)
-                if(user.id != 0L)
-                {
-                    app.user = user
-                    startActivityForResult<SiteListActivity>(0)
+                showProgress()
+                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                    if(task.isSuccessful) {
+                        fireStore!!.fetchSites {
+                            hideProgress()
+                            startActivityForResult<SiteListActivity>(0)
+                        }
+                        hideProgress()
+                        startActivityForResult<SiteListActivity>(0)
+                    }
+                    else
+                    {
+                        hideProgress()
+                        toast("Sign Up Failed: ${task.exception?.message}")
+                    }
                 }
-                else
-                    toast("Email already in use")
+
             }
         }
 
+
         logIn.setOnClickListener {
+            showProgress()
             val email = email.text.toString()
             val password = password.text.toString()
             if (email == "" || password == "") {
                 toast("Please provide email + password")
             }
             else {
-                var foundUser=app.users.findByEmailPassword(email, password)
-                if(foundUser==null)
-                    toast("Authentification failed")
-                else
-                {
-                    app.user = foundUser
-                    startActivityForResult<SiteListActivity>(0)
+                showProgress()
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        if (fireStore != null) {
+                            fireStore!!.fetchSites {
+                                hideProgress()
+                                var a=app.sites
+                                startActivityForResult<SiteListActivity>(0)
+                            }
+                        } else {
+                            hideProgress()
+                            startActivityForResult<SiteListActivity>(0)
+                        }
+                    } else {
+                        hideProgress()
+                        toast("Sign Up Failed: ${task.exception?.message}")
+                    }
                 }
-
             }
         }
+    }
+
+
+    fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    fun hideProgress() {
+        progressBar.visibility = View.GONE
     }
 
 
