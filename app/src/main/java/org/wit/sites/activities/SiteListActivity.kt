@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_site_list.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.intentFor
 
 
 import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.uiThread
 import org.wit.sites.R
 import org.wit.sites.activities.login.LoginAcitivity
 import org.wit.sites.activities.map.SiteMapsActivity
@@ -25,7 +28,11 @@ class SiteListActivity : AppCompatActivity(), SiteListener {
         setContentView(R.layout.activity_site_list)
         app = application as MainApp
 
-        toolbar.title = "${title}: ${app.user.email}"
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            toolbar.title = "${title}: ${user.email}"
+        }
+
         setSupportActionBar(toolbar)
 
         val layoutManager = LinearLayoutManager(this)
@@ -42,14 +49,22 @@ class SiteListActivity : AppCompatActivity(), SiteListener {
         when (item.itemId) {
             R.id.item_add -> startActivityForResult<SiteActivity>(0)
             R.id.item_settings -> startActivityForResult<SettingsActivity>(0)
-            R.id.item_logout -> startActivityForResult<LoginAcitivity>(0)
+            R.id.item_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                startActivityForResult<LoginAcitivity>(0)
+            }
             R.id.item_map -> startActivityForResult<SiteMapsActivity>(0)
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun loadSites() {
-        showSites(app.sites.findAllWithId(app.user.id))
+        doAsync {
+            val sites = app.sites.findAll()
+            uiThread {
+                showSites(sites)
+            }
+        }
     }
 
     fun showSites(sites: List<SiteModel>) {

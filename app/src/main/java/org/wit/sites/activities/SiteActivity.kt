@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -45,7 +46,6 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
     val LOCATION_REQUEST = 5
 
 
-    var defaultLocation = Location(52.245696, -7.139102, 15f)
     var locationManualyChanged = false;
     lateinit  var locationService: FusedLocationProviderClient
     val locationRequest = createDefaultLocationRequest()
@@ -82,10 +82,12 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
             lng.text = (site.location.lng).toString()
             ratingBar.rating = site.rating
 
-            SiteImage1.setImageBitmap(readImageFromPath(this,site.image1))
-            SiteImage2.setImageBitmap(readImageFromPath(this,site.image2))
-            SiteImage3.setImageBitmap(readImageFromPath(this,site.image3))
-            SiteImage4.setImageBitmap(readImageFromPath(this,site.image4))
+
+            Glide.with(this).load(site.image1).into(SiteImage1)
+            Glide.with(this).load(site.image2).into(SiteImage2)
+            Glide.with(this).load(site.image3).into(SiteImage3)
+            Glide.with(this).load(site.image4).into(SiteImage4)
+
 
             if(site.image1 != "")
                 chooseImage1.setText(R.string.change_site_image)
@@ -235,7 +237,7 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
                         app.sites.update(site)
                     }
                     else {
-                        app.sites.create(site,app.user.id)
+                        app.sites.create(site)
                     }
                 }
                 setResult(RESULT_OK)
@@ -251,28 +253,28 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
             IMAGE1_REQUEST -> {
                 if (data != null) {
                     site.image1 = data.getData().toString()
-                    SiteImage1.setImageBitmap(readImage(this, resultCode, data))
+                    Glide.with(this).load(site.image1).into(SiteImage1)
                     chooseImage1.setText(R.string.change_site_image)
                 }
             }
             IMAGE2_REQUEST -> {
                 if (data != null) {
                     site.image2 = data.getData().toString()
-                    SiteImage2.setImageBitmap(readImage(this, resultCode, data))
+                    Glide.with(this).load(site.image2).into(SiteImage2)
                     chooseImage2.setText(R.string.change_site_image)
                 }
             }
             IMAGE3_REQUEST -> {
                 if (data != null) {
                     site.image3 = data.getData().toString()
-                    SiteImage3.setImageBitmap(readImage(this, resultCode, data))
+                    Glide.with(this).load(site.image3).into(SiteImage3)
                     chooseImage3.setText(R.string.change_site_image)
                 }
             }
             IMAGE4_REQUEST -> {
                 if (data != null) {
                     site.image4 = data.getData().toString()
-                    SiteImage4.setImageBitmap(readImage(this, resultCode, data))
+                    Glide.with(this).load(site.image4).into(SiteImage4)
                     chooseImage4.setText(R.string.change_site_image)
                 }
             }

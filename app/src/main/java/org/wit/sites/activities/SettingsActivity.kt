@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.activity_site.*
 import kotlinx.android.synthetic.main.activity_site_list.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import org.wit.sites.R
 import org.wit.sites.main.MainApp
@@ -25,43 +27,42 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolbarSettings)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        var mySites = app.sites.findAllWithId(app.user.id)
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            toolbarSettings.title = "${title}: ${user.email}"
+        }
+
+        var mySites = app.sites.findAll()
         var markedCount = mySites.filter { it.visited }.count()
         NumberOfSites.text = "Number of sites: " + mySites.count().toString()
         NumberOfSitesVisited.text = "Number marked: " + markedCount.toString()
 
         buttonChangeCredentials.setOnClickListener {
-            editTextTextEmailAddressNew.visibility= View.VISIBLE
-            editTextPasswordOld.visibility= View.VISIBLE
-            editTextPasswordNew.visibility= View.VISIBLE
-            buttonSaveCredentials.visibility= View.VISIBLE
+            editTextTextEmailAddressNew.visibility = View.VISIBLE
+            editTextPasswordNew.visibility = View.VISIBLE
+            buttonSaveCredentials.visibility = View.VISIBLE
         }
 
         buttonSaveCredentials.setOnClickListener {
-            if(editTextTextEmailAddressNew.text.isNotEmpty())
-            {
-                var success = app.users.changeEmail(app.user.id,editTextTextEmailAddressNew.text.toString())
-                if(success)
-                    toast("Successfully changed Email")
-                else
-                    toast("Email already exists")
-            }
-            if(editTextPasswordNew.text.isNotEmpty())
-            {
-                if(editTextPasswordOld.text.toString() == app.user.password)
-                {
-                    var success = app.users.changePassword(app.user.id,editTextPasswordNew.text.toString())
-                    if(success)
-                        toast("Successfully changed password")
-                    else
-                        toast("Failed to change password")
+            if (editTextTextEmailAddressNew.text.isNotEmpty()) {
+                user?.updateEmail(editTextTextEmailAddressNew.text.toString())?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        toast("Email changed successfully")
+                    } else {
+                        toast("Email change failed: ${task.exception?.message}")
+                    }
                 }
-                else
-                {
-                    toast("Old password wrong")
+            }
+
+            if (editTextPasswordNew.text.isNotEmpty()) {
+                user?.updatePassword(editTextPasswordNew.text.toString())?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        toast("Password changed successfully")
+                    } else {
+                        toast("Password change failed: ${task.exception?.message}")
+                    }
                 }
             }
         }
     }
-
 }
