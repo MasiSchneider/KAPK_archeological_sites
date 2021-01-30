@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="org.wit.sites.activities.SiteActivity">
+        tools:context="org.wit.sites.activities.site.SiteActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -119,7 +119,7 @@
                     android:checked="false"
                     android:text="@string/checkbox_text"
                     android:layout_marginTop="15dp"
-                    app:layout_constraintEnd_toEndOf="@id/dateVisted"
+                    android:layout_marginStart="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/description" />
 
@@ -129,27 +129,43 @@
                     android:layout_height="35dp"
                     android:text="TextView"
                     android:layout_marginTop="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/checkBoxFavorite"
                     app:layout_constraintStart_toStartOf="@id/checkBoxVisited"
                     android:visibility="invisible"
                     app:layout_constraintTop_toBottomOf="@+id/description" />
 
-                <Button
-                    android:id="@+id/button_location"
-                    android:layout_width="379dp"
+                <CheckBox
+                    android:id="@+id/checkBoxFavorite"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
+                    android:text="Favourite"
                     android:layout_marginTop="15dp"
-                    android:layout_marginEnd="19dp"
-                    android:background="@color/colorAccent"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/button_setLocation"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
+                    android:layout_marginEnd="28dp"
+                    android:layout_marginStart="50dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/description" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/checkBoxVisited"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/checkBoxVisited" />
+                    android:layout_marginTop="15dp"
+                    />
+
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/mapView"
+                    android:layout_width="405dp"
+                    android:layout_height="244dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
                 <Button
                     android:id="@+id/chooseImage1"
@@ -166,7 +182,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button_location" />
+                    app:layout_constraintTop_toBottomOf="@+id/mapView" />
 
                 <ImageView
                     android:id="@+id/SiteImage1"

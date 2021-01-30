@@ -17,6 +17,8 @@ data class SiteModel(var id: Long = 0,
                      var visited: Boolean = false,
                      var visitedDate: String = "",
                      var notes: String ="",
+                     var rating: Float = 0f,
+                     var favourite: Boolean = false,
                      var location: Location = Location()) : Parcelable
 
 @Parcelize

@@ -75,19 +75,6 @@
         />
 
     <EditText
-        android:id="@+id/editTextPasswordOld"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="Old password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddressNew"
-        android:visibility="invisible"/>
-
-    <EditText
         android:id="@+id/editTextPasswordNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -97,7 +84,7 @@
         android:hint="New password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPasswordOld"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddressNew"
         tools:layout_editor_absoluteY="585dp"
         android:visibility="invisible"/>
 

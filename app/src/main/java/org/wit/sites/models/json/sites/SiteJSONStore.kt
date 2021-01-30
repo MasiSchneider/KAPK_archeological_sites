@@ -36,9 +36,8 @@ class SiteJSONStore : SiteStore, AnkoLogger {
         return sites
     }
 
-    override fun create(site: SiteModel, JsonUserid: Long) {
+    override fun create(site: SiteModel) {
         site.id = generateRandomId()
-        site.jsonUserId = JsonUserid
         sites.add(site)
         serialize()
     }
@@ -57,6 +56,7 @@ class SiteJSONStore : SiteStore, AnkoLogger {
             foundSite.visited = site.visited
             foundSite.visitedDate = site.visitedDate
             foundSite.notes = site.notes
+            foundSite.rating = site.rating
             foundSite.location = site.location
         }
         serialize()
@@ -85,9 +85,5 @@ class SiteJSONStore : SiteStore, AnkoLogger {
 
     override fun clear() {
         sites.clear()
-    }
-
-    override fun findAllWithId(id: Long): MutableList<SiteModel> {
-        return (sites.filter { it.jsonUserId.equals(id) } as MutableList<SiteModel>)
     }
 }

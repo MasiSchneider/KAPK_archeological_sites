@@ -19,9 +19,15 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activities.SettingsActivity"
-            android:parentActivityName=".activities.SiteListActivity"
+            android:name=".activities.Settings.SettingsActivity"
+            android:parentActivityName=".activities.siteList.SiteListActivity"
             android:label="@string/title_activity_settings">
+        </activity>
+
+        <activity
+            android:name=".activities.favourite.FavouriteSiteActivity"
+            android:parentActivityName=".activities.siteList.SiteListActivity"
+            android:label="@string/title_activity_favourites">
         </activity>
 
         <activity
@@ -30,22 +36,29 @@
         </activity>
 
         <activity
-            android:name=".activities.map.MapActivity"
-            android:label="@string/title_activity_map">
+            android:name=".activities.map.SiteMapsActivity"
+            android:label="@string/title_activity_map"
+            android:launchMode="singleTop">
         </activity>
 
         <activity
-            android:name=".activities.SiteListActivity"
+            android:name=".activities.location.LocationActivity"
+            android:parentActivityName=".activities.siteList.SiteListActivity"
+            android:label="@string/title_activity_location">
+        </activity>
+
+        <activity
+            android:name=".activities.siteList.SiteListActivity"
             android:label="@string/title_activity_site_list">
         </activity>
 
         <activity
-            android:name=".activities.SiteActivity"
-            android:parentActivityName=".activities.SiteListActivity"
+            android:name=".activities.site.SiteActivity"
+            android:parentActivityName=".activities.siteList.SiteListActivity"
             android:label="@string/title_activity_site">
         </activity>
 
-        <activity android:name=".activities.SplashActivity">
+        <activity android:name=".activities.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

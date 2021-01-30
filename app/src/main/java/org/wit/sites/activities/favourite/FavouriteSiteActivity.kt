@@ -1,22 +1,22 @@
-package org.wit.sites.activities
+package org.wit.sites.activities.favourite
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_site_list.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.intentFor
-
-
-import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.uiThread
 import org.wit.sites.R
-import org.wit.sites.activities.login.LoginAcitivity
+import org.wit.sites.activities.site.SiteActivity
+import org.wit.sites.activities.SiteAdapter
+import org.wit.sites.activities.SiteListener
 import org.wit.sites.main.MainApp
 import org.wit.sites.models.SiteModel
 
-class SiteListActivity : AppCompatActivity(), SiteListener {
-
+class FavouriteSiteActivity : AppCompatActivity(), SiteListener {
     lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,30 +24,27 @@ class SiteListActivity : AppCompatActivity(), SiteListener {
         setContentView(R.layout.activity_site_list)
         app = application as MainApp
 
-        toolbar.title = "${title}: ${app.user.email}"
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            toolbar.title = "${title}: ${user.email}"
+        }
+
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         loadSites()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item_add -> startActivityForResult<SiteActivity>(0)
-            R.id.item_settings -> startActivityForResult<SettingsActivity>(0)
-            R.id.item_logout -> startActivityForResult<LoginAcitivity>(0)
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun loadSites() {
-        showSites(app.sites.findAllWithId(app.user.id))
+        doAsync {
+            val sites = app.sites.findAll().filter { it.favourite}
+            uiThread {
+                showSites(sites)
+            }
+        }
     }
 
     fun showSites(sites: List<SiteModel>) {
@@ -64,4 +61,3 @@ class SiteListActivity : AppCompatActivity(), SiteListener {
         startActivityForResult(intentFor<SiteActivity>().putExtra("site_edit", site), 0)
     }
 }
-
