@@ -1,19 +1,14 @@
-package org.wit.sites.activities
+package org.wit.sites.activities.Settings
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_site.*
-import kotlinx.android.synthetic.main.activity_site_list.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import org.wit.sites.R
 import org.wit.sites.main.MainApp
-import org.wit.sites.models.json.users.UserJSONStore
 
 
 class SettingsActivity : AppCompatActivity(), AnkoLogger {

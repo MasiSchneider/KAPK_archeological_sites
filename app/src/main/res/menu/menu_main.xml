@@ -11,6 +11,10 @@
         android:id="@+id/item_map"
         android:title="@string/menu_showMap"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/item_favourites"
+        android:title="@string/menu_showFavourites"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/item_settings"

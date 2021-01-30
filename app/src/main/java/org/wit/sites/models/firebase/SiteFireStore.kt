@@ -54,6 +54,7 @@ class SiteFireStore(val context: Context) : SiteStore, AnkoLogger {
             foundSite.visitedDate = site.visitedDate
             foundSite.notes = site.notes
             foundSite.rating = site.rating
+            foundSite.favourite = site.favourite
             foundSite.location = site.location
         }
         db.child("users").child(userId).child("sites").child(site.fbId).setValue(site)
