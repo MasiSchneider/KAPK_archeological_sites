@@ -54,12 +54,11 @@ class SiteFireStore(val context: Context) : SiteStore, AnkoLogger {
             foundSite.visitedDate = site.visitedDate
             foundSite.notes = site.notes
             foundSite.rating = site.rating
+            foundSite.favourite = site.favourite
             foundSite.location = site.location
         }
         db.child("users").child(userId).child("sites").child(site.fbId).setValue(site)
-        if ((site.image1.length) > 0 && (site.image1[0] != 'h')) {
-            updateImages(site)
-        }
+        updateImages(site)
     }
 
     override fun delete(site: SiteModel) {
@@ -88,28 +87,44 @@ class SiteFireStore(val context: Context) : SiteStore, AnkoLogger {
     }
 
     fun updateImages(site: SiteModel) {
-        if (site.image1 != "") {
-            val fileName = File(site.image1)
-            val imageName = fileName.getName()
+        val images = listOf(site.image1, site.image2, site.image3, site.image4)
+        for (image in images)
+        {
+            if ((image.length) > 0 && (image[0] != 'h')) {
+                if (image != "") {
+                    val fileName = File(image)
+                    val imageName = fileName.getName()
 
-            var imageRef = st.child(userId + '/' + imageName)
-            val baos = ByteArrayOutputStream()
-            val bitmap = readImageFromPath(context, site.image1)
+                    var imageRef = st.child(userId + '/' + imageName)
+                    val baos = ByteArrayOutputStream()
+                    val bitmap = readImageFromPath(context, image)
 
-            bitmap?.let {
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                val data = baos.toByteArray()
-                val uploadTask = imageRef.putBytes(data)
-                uploadTask.addOnFailureListener {
-                    println(it.message)
-                }.addOnSuccessListener { taskSnapshot ->
-                    taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
-                        site.image1 = it.toString()
-                        db.child("users").child(userId).child("sites").child(site.fbId).setValue(site)
+                    bitmap?.let {
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                        val data = baos.toByteArray()
+                        val uploadTask = imageRef.putBytes(data)
+                        uploadTask.addOnFailureListener {
+                            println(it.message)
+                        }.addOnSuccessListener { taskSnapshot ->
+                            taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+                                if(image==site.image1)
+                                    site.image1 = it.toString()
+                                if(image==site.image2)
+                                    site.image2 = it.toString()
+                                if(image==site.image3)
+                                    site.image3 = it.toString()
+                                if(image==site.image4)
+                                    site.image4 = it.toString()
+                                db.child("users").child(userId).child("sites").child(site.fbId).setValue(site)
+                            }
+                        }
                     }
                 }
             }
+
         }
+
+
     }
 
 }

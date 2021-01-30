@@ -27,4 +27,6 @@
     <string name="sitePicture">Site Picture</string>
     <string name="siteDescription">Description of site</string>
     <string name="menu_showMap">Show Map</string>
+    <string name="title_activity_favourites">Favourites</string>
+    <string name="menu_showFavourites">Show Favourites</string>
 </resources>

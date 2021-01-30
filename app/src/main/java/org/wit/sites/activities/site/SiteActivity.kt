@@ -1,4 +1,4 @@
-package org.wit.sites.activities
+package org.wit.sites.activities.site
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -30,7 +30,6 @@ import org.wit.sites.models.Location
 
 import org.wit.sites.models.SiteModel
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.*
 
 class SiteActivity : AppCompatActivity(), AnkoLogger {
@@ -103,6 +102,8 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
                 dateVisted.setVisibility(View.VISIBLE)
                 dateVisted.setText(site.visitedDate)
             }
+            if(site.favourite)
+                checkBoxFavorite.setChecked(true)
         }
         else {
             if (checkLocationPermissions(this)) {
@@ -138,6 +139,9 @@ class SiteActivity : AppCompatActivity(), AnkoLogger {
             {
                 dateVisted.visibility = View.INVISIBLE
             }
+        }
+        checkBoxFavorite.setOnClickListener {
+            site.favourite=!site.favourite
         }
     }
 

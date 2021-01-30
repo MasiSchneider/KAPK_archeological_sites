@@ -9,13 +9,9 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import org.wit.sites.R
-import org.wit.sites.activities.SiteListActivity
+import org.wit.sites.activities.siteList.SiteListActivity
 import org.wit.sites.main.MainApp
-import org.wit.sites.models.UserModel
-import org.wit.sites.models.UserStore
 import org.wit.sites.models.firebase.SiteFireStore
-import org.wit.sites.models.json.sites.SiteJSONStore
-import org.wit.sites.models.json.users.UserJSONStore
 
 class LoginAcitivity : AppCompatActivity(), AnkoLogger {
     lateinit var app: MainApp
