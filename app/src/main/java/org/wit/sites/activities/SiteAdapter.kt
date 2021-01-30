@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.card_site.view.*
 import org.wit.sites.R
 import org.wit.sites.models.SiteModel
@@ -32,6 +33,7 @@ class SiteAdapter constructor(
         fun bind(site: SiteModel, listener: SiteListener) {
             itemView.siteTitle.text = site.title
             itemView.description.text = site.description
+            Glide.with(itemView.context).load(site.image1).into(itemView.imageIcon);
             itemView.setOnClickListener { listener.onSiteClick(site) }
         }
     }
