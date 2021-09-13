@@ -1,7 +1,7 @@
 # KAPK_archeological_sites
 This is an Android application for archeology students, to manage archeological sites
 
-- ssers can add or delete entrys for sites
+- users can add or delete entries for sites
 - signup/login functionality (persistence for both the sites and the user accounts is possible locally with a JSON storage, or with Firebase DB and Firebase authentication
 - for each site, users can: add a description, tick visited box, enter date visited, add additional notes, edit location, rate site (1-5 stars), add up to 4 images and mark as favorite
 - google maps integration to mark places on the map, current location detection available
